@@ -60,6 +60,31 @@ public class SinglyLinkedList {
         current.next = newNode;
     }
 
+
+    //note that position is counted starting from 1 not 0
+    private void insertAtPosition(int value, int position, SinglyLinkedList singlyLinkedList){
+
+        ListNode node = new ListNode(value);
+        if (position == 0 || position > singlyLinkedList.length()+1){
+            System.out.println("Error, Invalid Position");
+            return;
+        }
+        if (position == 1){
+            node.next = head;
+            head = node;
+        } else {
+            ListNode previous = head;
+            int count = 1;
+            while (count < position - 1){
+                previous = previous.next;
+                count++;
+            }
+            ListNode current = previous.next;
+            previous.next = node;
+            node.next = current;
+        }
+    }
+
     public static void main(String[] args) {
 
         SinglyLinkedList sll = new SinglyLinkedList();
@@ -89,6 +114,14 @@ public class SinglyLinkedList {
         System.out.println("insert a new node at the end of the list");
         sll.insertLast(3);
         sll.insertLast(5);
+        sll.displayNodes();
+
+        System.out.println("insert a new node at third position of the list");
+        sll.insertAtPosition(9, 1, sll);
+        sll.insertAtPosition(9, 3, sll);
+        sll.insertAtPosition(9, 11, sll);
+        sll.insertAtPosition(9, 17, sll);
+        sll.insertAtPosition(9, 0, sll);
         sll.displayNodes();
     }
 }
