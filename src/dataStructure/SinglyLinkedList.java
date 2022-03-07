@@ -95,6 +95,25 @@ public class SinglyLinkedList {
         return temp;
     }
 
+    private ListNode deleteLastNode(){
+        if (head == null){
+            return head;
+        }
+        else if (head.next == null){
+            ListNode previous = head;
+            head = null;
+            return previous;
+        }
+        ListNode current = head;
+        ListNode previous = null;
+        while (current.next != null){
+            previous = current;
+            current = current.next;
+        }
+        previous.next = null;
+        return current;
+    }
+
     public static void main(String[] args) {
 
         SinglyLinkedList sll = new SinglyLinkedList();
@@ -136,10 +155,26 @@ public class SinglyLinkedList {
         sll.insertAtPosition(9, 0, sll);
         sll.displayNodes();
 
-         */
+
 
         sll.displayNodes();
         System.out.println(sll.deleteFirstNode().data);
+        sll.displayNodes();
+
+         */
+
+        sll.displayNodes();
+        System.out.println(sll.deleteLastNode().data);
+        sll.displayNodes();
+        System.out.println(sll.deleteLastNode().data);
+        sll.displayNodes();
+        System.out.println(sll.deleteLastNode().data);
+        sll.displayNodes();
+        System.out.println(sll.deleteLastNode().data);
+        sll.displayNodes();
+        if (sll.deleteLastNode() != null){
+            System.out.println(sll.deleteLastNode().data);
+        }
         sll.displayNodes();
     }
 }
