@@ -85,6 +85,16 @@ public class SinglyLinkedList {
         }
     }
 
+    private ListNode deleteFirstNode(){
+        if (head == null){
+            return null;
+        }
+        ListNode temp = head;
+        head = head.next;
+        temp.next = null;
+        return temp;
+    }
+
     public static void main(String[] args) {
 
         SinglyLinkedList sll = new SinglyLinkedList();
@@ -95,11 +105,13 @@ public class SinglyLinkedList {
         ListNode third = new ListNode(8);
         ListNode fourth = new ListNode(11);
 
+
         //linking list nodes together
         sll.head.next = second;   //10 --> 1 --> null
         second.next = third;      //10 --> 1 --> 8 --> null
         third.next = fourth;   //10 --> 1 --> 8 --> 11 --> null
 
+        /*
         //printing list nodes data on the screen
         sll.displayNodes();
 
@@ -122,6 +134,12 @@ public class SinglyLinkedList {
         sll.insertAtPosition(9, 11, sll);
         sll.insertAtPosition(9, 17, sll);
         sll.insertAtPosition(9, 0, sll);
+        sll.displayNodes();
+
+         */
+
+        sll.displayNodes();
+        System.out.println(sll.deleteFirstNode().data);
         sll.displayNodes();
     }
 }
