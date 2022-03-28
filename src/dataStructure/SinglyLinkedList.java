@@ -114,6 +114,23 @@ public class SinglyLinkedList {
         return current;
     }
 
+    private void deleteAtPosition(int position){
+        //assume that position is valid and starting from 1
+        //3 -> 4 -> 7 -> 8 -> 9 -> null
+        if (position == 1){
+            head = head.next;
+        } else {
+            ListNode previous = head;
+            int count = 1;
+            while (count < position-1){
+                previous = previous.next;
+                count++;
+            }
+            ListNode current = previous.next;
+            previous.next = current.next;
+        }
+    }
+
     public static void main(String[] args) {
 
         SinglyLinkedList sll = new SinglyLinkedList();
@@ -123,12 +140,14 @@ public class SinglyLinkedList {
         ListNode second = new ListNode(1);
         ListNode third = new ListNode(8);
         ListNode fourth = new ListNode(11);
+        ListNode fifth = new ListNode(5);
 
 
         //linking list nodes together
         sll.head.next = second;   //10 --> 1 --> null
         second.next = third;      //10 --> 1 --> 8 --> null
         third.next = fourth;   //10 --> 1 --> 8 --> 11 --> null
+        fourth.next = fifth;   //10 --> 1 --> 8 --> 11 --> 5 --> null
 
         /*
         //printing list nodes data on the screen
@@ -161,7 +180,7 @@ public class SinglyLinkedList {
         System.out.println(sll.deleteFirstNode().data);
         sll.displayNodes();
 
-         */
+
 
         sll.displayNodes();
         System.out.println(sll.deleteLastNode().data);
@@ -175,6 +194,11 @@ public class SinglyLinkedList {
         if (sll.deleteLastNode() != null){
             System.out.println(sll.deleteLastNode().data);
         }
+         */
+        sll.displayNodes();
+        sll.deleteAtPosition(4);
+        sll.displayNodes();
+        sll.deleteAtPosition(2);
         sll.displayNodes();
     }
 }
