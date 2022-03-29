@@ -131,6 +131,38 @@ public class SinglyLinkedList {
         }
     }
 
+    //search if a linked list has a certain value
+    private boolean hasValue(int searchKey){
+        if (head == null){
+            return false;
+        }
+        ListNode current = head;
+        while (current != null){
+            if (current.data == searchKey){
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
+    //reverser a singly linked list
+    private ListNode reverse(){
+        if (head == null){
+            return head;
+        }
+        ListNode current = head;
+        ListNode previous = null;
+        ListNode next = null;
+        while (current != null){
+            next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+        return previous;
+    }
+
     public static void main(String[] args) {
 
         SinglyLinkedList sll = new SinglyLinkedList();
@@ -149,10 +181,10 @@ public class SinglyLinkedList {
         third.next = fourth;   //10 --> 1 --> 8 --> 11 --> null
         fourth.next = fifth;   //10 --> 1 --> 8 --> 11 --> 5 --> null
 
-        /*
+
         //printing list nodes data on the screen
         sll.displayNodes();
-
+/*
         //display list length
         System.out.println("\n Length is = " + sll.length());
 
@@ -194,11 +226,20 @@ public class SinglyLinkedList {
         if (sll.deleteLastNode() != null){
             System.out.println(sll.deleteLastNode().data);
         }
-         */
+
         sll.displayNodes();
         sll.deleteAtPosition(4);
         sll.displayNodes();
         sll.deleteAtPosition(2);
+        sll.displayNodes();
+
+         */
+
+        System.out.println(sll.hasValue(1));
+        System.out.println(sll.hasValue(99));
+        System.out.println(sll.hasValue(5));
+
+        sll.head = sll.reverse();
         sll.displayNodes();
     }
 }
