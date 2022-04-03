@@ -163,6 +163,62 @@ public class SinglyLinkedList {
         return previous;
     }
 
+    private ListNode getMiddleNode(){
+        if (head == null){
+            return null;
+        }
+        if (head.next == null){
+            return head;
+        }
+        ListNode slowPointer = head;
+        ListNode fastPointer = head;
+        while (fastPointer != null && fastPointer.next != null){
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
+        }
+        return slowPointer;
+    }
+
+    //getting the node at n position counting from the end of the list
+    // and assuming that the position is valid
+    private ListNode getnNodeFromEnd(int positionFromEnd){
+        if (head == null){
+            return null;
+        }
+        if (positionFromEnd <= 0){
+            throw new IllegalArgumentException("Position is greater than list length" + positionFromEnd);
+        }
+        ListNode mainPointer = head;
+        ListNode refPointer = head;
+        int counter = 0;
+        while (counter < positionFromEnd){
+            if (refPointer == null){
+                throw new IllegalArgumentException("Invalid value " + positionFromEnd);
+            }
+            refPointer = refPointer.next;
+            counter++;
+        }
+        while (refPointer != null){
+            mainPointer = mainPointer.next;
+            refPointer = refPointer.next;
+        }
+        return mainPointer;
+    }
+
+    //doing my own algorithm for the same achievement
+    private ListNode getnNodeFromEnd2(int positionFromEnd){
+        //check if position is valid
+        if (positionFromEnd > length()){
+            return null;
+        }
+        ListNode mainPointer = head;
+        int counter = length() - positionFromEnd;
+        for (int i=1; i<=counter; i++){
+            mainPointer = mainPointer.next;
+        }
+        return mainPointer;
+    }
+
     public static void main(String[] args) {
 
         SinglyLinkedList sll = new SinglyLinkedList();
@@ -233,13 +289,23 @@ public class SinglyLinkedList {
         sll.deleteAtPosition(2);
         sll.displayNodes();
 
-         */
 
+
+        //searching a value
         System.out.println(sll.hasValue(1));
         System.out.println(sll.hasValue(99));
         System.out.println(sll.hasValue(5));
 
+        //reverse the linked list
         sll.head = sll.reverse();
         sll.displayNodes();
+
+
+        //get the middle node and display its value
+        System.out.println(sll.getMiddleNode().data);
+
+ */
+        System.out.println(sll.getnNodeFromEnd(2).data);
+        System.out.println(sll.getnNodeFromEnd2(2).data);
     }
 }
