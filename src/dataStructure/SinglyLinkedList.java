@@ -219,16 +219,102 @@ public class SinglyLinkedList {
         return mainPointer;
     }
 
+    //remove duplicate from sorted Singly Linked List
+    private void removeDuplicateFromSorted(){
+        if (head == null){
+            return;
+        }
+        ListNode current = head;
+        while (current != null && current.next != null){
+            if (current.data == current.next.data){
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+            }
+        }
+    }
+
+    //insert a node in a sorted Singly Linked List
+    private ListNode insertInSorted(int value){
+        ListNode newNode = new ListNode(value);
+        if (head == null){
+            head = newNode;
+            return head;
+        }
+        ListNode current = head;
+        ListNode temp = null;
+        if (current.data > newNode.data){
+            newNode.next = current;
+            head = newNode;
+        } else {
+            while (current != null && current.data < newNode.data){
+                temp = current;
+                current = current.next;
+            }
+            newNode.next = current;
+            temp.next = newNode;
+        }
+        return head;
+    }
+
+    //doing my own algorithm for the same achievement
+    private void insertInSorted2(int value){
+        ListNode newNode = new ListNode(value);
+        if (head == null){
+            head = newNode;
+        }
+        ListNode current = head;
+        if (current.data > newNode.data){
+            newNode.next = current;
+            head = newNode;
+            return;
+        }
+        while (current != null && current.data < newNode.data){
+            if (current.next == null){
+                current.next = newNode;
+                return;
+            }
+            if (current.next.data > newNode.data){
+                newNode.next = current.next;
+                current.next = newNode;
+                return;
+            } else {
+                current = current.next;
+            }
+        }
+    }
+
+    //remove a given key from Singly Linked List
+    private void deleteNode(int nodeValue){
+        if (head == null){
+            return;
+        }
+        if (head.data == nodeValue){
+            head = head.next;
+            return;
+        }
+        ListNode current = head;
+        ListNode previous = null;
+        while (current != null && current.data != nodeValue){
+            previous = current;
+            current = current.next;
+        }
+        if (current == null){
+            return;
+        }
+        previous.next = current.next;
+    }
+
     public static void main(String[] args) {
 
         SinglyLinkedList sll = new SinglyLinkedList();
 
         //creating list nodes
-        sll.head = new ListNode(10);
-        ListNode second = new ListNode(1);
-        ListNode third = new ListNode(8);
-        ListNode fourth = new ListNode(11);
-        ListNode fifth = new ListNode(5);
+        sll.head = new ListNode(1);
+        ListNode second = new ListNode(8);
+        ListNode third = new ListNode(10);
+        ListNode fourth = new ListNode(16);
+        ListNode fifth = new ListNode(20);
 
 
         //linking list nodes together
@@ -304,8 +390,40 @@ public class SinglyLinkedList {
         //get the middle node and display its value
         System.out.println(sll.getMiddleNode().data);
 
- */
         System.out.println(sll.getnNodeFromEnd(2).data);
         System.out.println(sll.getnNodeFromEnd2(2).data);
+
+
+        //remove duplicate from sorted Singly Linked List
+        sll.removeDuplicateFromSorted();
+        sll.displayNodes();
+
+
+
+        //insert a node in a sorted Singly Linked List
+//        sll.insertInSorted(11);
+//        sll.displayNodes();
+//        sll.insertInSorted(20);
+//        sll.displayNodes();
+//        sll.insertInSorted(0);
+//        sll.displayNodes();
+        sll.insertInSorted2(11);
+        sll.displayNodes();
+        sll.insertInSorted2(20);
+        sll.displayNodes();
+        sll.insertInSorted2(0);
+        sll.displayNodes();
+
+ */
+
+        //remove a given key from Singly Linked List
+        sll.deleteNode(16);
+        sll.displayNodes();
+        sll.deleteNode(1);
+        sll.displayNodes();
+        sll.deleteNode(20);
+        sll.displayNodes();
+        sll.deleteNode(25);
+        sll.displayNodes();
     }
 }
