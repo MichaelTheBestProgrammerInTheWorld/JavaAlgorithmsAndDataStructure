@@ -305,6 +305,95 @@ public class SinglyLinkedList {
         previous.next = current.next;
     }
 
+    //Detect a loop in a Singly Linked List
+    private boolean hasLoop(){
+        if (head == null || head.next == null){
+            return false;
+        }
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+        while (fastPtr != null && fastPtr.next != null){
+            fastPtr = fastPtr.next.next;
+            if (slowPtr == fastPtr){
+                return true;
+            }
+            slowPtr = slowPtr.next;
+            if (slowPtr == fastPtr){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void createLoopedLinkedList(){
+        ListNode first = new ListNode(1);
+        ListNode second = new ListNode(2);
+        ListNode third = new ListNode(3);
+        ListNode fourth = new ListNode(4);
+        ListNode fifth = new ListNode(5);
+        ListNode sixth = new ListNode(6);
+        head = first;
+        first.next = second;
+        second.next = third;
+        third.next = fourth;
+        fourth.next = fifth;
+        fifth.next = sixth;
+        sixth.next = third;
+    }
+
+    //find start of a loop in a Singly Linked List using floyd cycle detection algorithm
+    private ListNode getStartingNodeInLoop(){
+        if (head == null || head.next == null){
+            return null;
+        }
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+        while (fastPtr != null && fastPtr.next != null){
+            fastPtr = fastPtr.next.next;
+            //this part of code is not compatible with floyd algorithm
+//            if (slowPtr == fastPtr){
+//                ListNode temp = head;
+//                while (temp != slowPtr){
+//                    temp = temp.next;
+//                    slowPtr = slowPtr.next;
+//                }
+//                return slowPtr;
+//            }
+            slowPtr = slowPtr.next;
+            if (slowPtr == fastPtr){
+                ListNode temp = head;
+                while (temp != slowPtr){
+                    temp = temp.next;
+                    slowPtr = slowPtr.next;
+                }
+                return slowPtr;
+            }
+        }
+        return null;
+    }
+
+    //remove loop from a Singly Linked
+    private void removeLoop(){
+        if (head == null || head.next == null){
+            return ;
+        }
+        ListNode fastPtr = head;
+        ListNode slowPtr = head;
+        while (fastPtr != null && fastPtr.next != null){
+            fastPtr = fastPtr.next.next;
+            slowPtr = slowPtr.next;
+            if (slowPtr == fastPtr){
+                ListNode temp = head;
+                while (temp.next != slowPtr.next){
+                    temp = temp.next;
+                    slowPtr = slowPtr.next;
+                }
+                slowPtr.next = null;
+                return;
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         SinglyLinkedList sll = new SinglyLinkedList();
@@ -414,7 +503,6 @@ public class SinglyLinkedList {
         sll.insertInSorted2(0);
         sll.displayNodes();
 
- */
 
         //remove a given key from Singly Linked List
         sll.deleteNode(16);
@@ -425,5 +513,20 @@ public class SinglyLinkedList {
         sll.displayNodes();
         sll.deleteNode(25);
         sll.displayNodes();
+
+ */
+
+        //loop in a singly linked list
+        sll.createLoopedLinkedList();
+        //sll.displayNodes();  can't call this method with looped linked list
+        System.out.println(sll.hasLoop());
+        if (sll.hasLoop()){
+            System.out.println(sll.getStartingNodeInLoop().data);
+        }
+        sll.removeLoop();
+        System.out.println(sll.hasLoop());
+        if (!sll.hasLoop()){
+            sll.displayNodes();
+        }
     }
 }
