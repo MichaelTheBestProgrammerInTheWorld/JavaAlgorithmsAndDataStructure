@@ -394,6 +394,28 @@ public class SinglyLinkedList {
         }
     }
 
+    //merge two sorted singly linked list
+    private static ListNode merge(ListNode aHead, ListNode bHead){
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        while (aHead != null && bHead != null){
+            if (aHead.data <= bHead.data){
+                tail.next = aHead;
+                aHead = aHead.next;
+            } else {
+                tail.next = bHead;
+                bHead = bHead.next;
+            }
+            tail = tail.next;
+        }
+        if (aHead == null){
+            tail.next = bHead;
+        } else {
+            tail.next = aHead;
+        }
+        return dummy.next;
+    }
+
     public static void main(String[] args) {
 
         SinglyLinkedList sll = new SinglyLinkedList();
@@ -514,7 +536,6 @@ public class SinglyLinkedList {
         sll.deleteNode(25);
         sll.displayNodes();
 
- */
 
         //loop in a singly linked list
         sll.createLoopedLinkedList();
@@ -528,5 +549,24 @@ public class SinglyLinkedList {
         if (!sll.hasLoop()){
             sll.displayNodes();
         }
+
+ */
+
+        //merge two sorted singly linked list
+        SinglyLinkedList a = new SinglyLinkedList();
+        a.insertLast(1);
+        a.insertLast(3);
+        a.insertLast(5);
+        SinglyLinkedList b = new SinglyLinkedList();
+        b.insertLast(2);
+        b.insertLast(4);
+        b.insertLast(6);
+        b.insertLast(8);
+        b.insertLast(10);
+        a.displayNodes();
+        b.displayNodes();
+        SinglyLinkedList mergedList = new SinglyLinkedList();
+        mergedList.head = merge(a.head, b.head);
+        mergedList.displayNodes();
     }
 }
