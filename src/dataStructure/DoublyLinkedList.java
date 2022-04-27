@@ -118,6 +118,25 @@ public class DoublyLinkedList {
         return temp;
     }
 
+    //delete a certain node in the list
+    private boolean deleteNode(int data){
+        if (isEmpty()){
+            return false;
+        }
+        ListNode temp = head;
+        while (temp != null){
+            if (temp.data == data){
+                temp.previous.next = temp.next;
+                temp.next.previous = temp.previous;
+                length--;
+                return true;
+            } else {
+                temp = temp.next;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 
         //create doubly linked list and link its nodes
@@ -202,35 +221,49 @@ public class DoublyLinkedList {
          */
 
         //delete last node in the list
-        if (dll.deleteLast() == null){
-            System.out.println("list is empty");
-        } else {
+//        if (dll.deleteLast() == null){
+//            System.out.println("list is empty");
+//        } else {
+//            dll.displayForward();
+//        }
+//        if (dll.deleteLast() == null){
+//            System.out.println("list is empty");
+//        } else {
+//            dll.displayForward();
+//        }
+//        if (dll.deleteLast() == null){
+//            System.out.println("list is empty");
+//        } else {
+//            dll.displayForward();
+//        }
+//        if (dll.deleteLast() == null){
+//            System.out.println("list is empty");
+//        } else {
+//            dll.displayForward();
+//        }
+//        if (dll.deleteLast() == null){
+//            System.out.println("list is empty");
+//        } else {
+//            dll.displayForward();
+//        }
+//        if (dll.deleteLast() == null){
+//            System.out.println("list is empty");
+//        } else {
+//            dll.displayForward();
+//        }
+
+        //delete a certain node in the list
+        if (dll.deleteNode(99)){
+            System.out.println("deleted successfully");
             dll.displayForward();
+        } else {
+            System.out.println("node not found");
         }
-        if (dll.deleteLast() == null){
-            System.out.println("list is empty");
-        } else {
+        if (dll.deleteNode(999)){
+            System.out.println("deleted successfully");
             dll.displayForward();
-        }
-        if (dll.deleteLast() == null){
-            System.out.println("list is empty");
         } else {
-            dll.displayForward();
-        }
-        if (dll.deleteLast() == null){
-            System.out.println("list is empty");
-        } else {
-            dll.displayForward();
-        }
-        if (dll.deleteLast() == null){
-            System.out.println("list is empty");
-        } else {
-            dll.displayForward();
-        }
-        if (dll.deleteLast() == null){
-            System.out.println("list is empty");
-        } else {
-            dll.displayForward();
+            System.out.println("node not found");
         }
     }
 }
