@@ -1,6 +1,8 @@
 package dataStructure;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
 
 public class Stack {
 
@@ -54,6 +56,20 @@ public class Stack {
         return top.data;
     }
 
+    public String reverseString(String str) {
+        java.util.Stack<Character> stack = new java.util.Stack();
+        char[] chars = str.toCharArray();
+
+        for(char c : chars) {
+            stack.push(c);
+        }
+
+        for(int i = 0; i < str.length(); i++) {
+            chars[i] = stack.pop();
+        }
+        return new String(chars);
+    }
+
     public static void main(String[] args) {
 
         Stack stack = new Stack();
@@ -63,5 +79,10 @@ public class Stack {
         System.out.println(stack.peek());
         stack.pop();
         System.out.println(stack.peek());
+        String str = "ABCDE";
+        System.out.println(str);
+        System.out.println(stack.reverseString(str));
+
+
     }
 }

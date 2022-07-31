@@ -176,6 +176,26 @@ public class ArrayUtil {
         return sum;
     }
 
+    //problem in video 89
+    public int[] nextGreaterElement(int[] arr){
+        int[] result = new int[arr.length];
+        int pointer = 0;
+        for (int i=0; i<arr.length; i++){
+            for (int j=i+1; j<arr.length; j++){
+                if (arr[i] < arr[j]){
+                    result[pointer] = arr[j];
+                    pointer++;
+                    break;
+                } else if (j == arr.length-1){
+                    result[pointer] = -1;
+                    pointer++;
+                }
+            }
+        }
+        result[pointer] = -1;
+        return result;
+    }
+
     public static void main(String[] args) {
 
         ArrayUtil arrayUtil = new ArrayUtil();
@@ -200,5 +220,12 @@ public class ArrayUtil {
         arrayUtil.printArray(arr);
         int[] arr3 = {1, 4, 3, 6 , 9, 7, 2, 8};
         System.out.println("missing number is " + arrayUtil.findMissingNumber(arr3));
+
+        int[] arr4 = {4, 7, 3, 4, 8, 1};
+        int[] result = arrayUtil.nextGreaterElement(arr4);
+        for (int i : result){
+            System.out.print(i + " / ");
+        }
+        System.out.println();
     }
 }
