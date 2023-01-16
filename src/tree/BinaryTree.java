@@ -63,7 +63,7 @@ public class BinaryTree {
 
     //Recursive Inorder traversal of Binary Tree
     public void inOrder(TreeNode root){
-        if (root == null) {   //base line
+        if (root == null) {   //base line recursion thread will be terminated here
             return;
         }
         inOrder(root.left);
@@ -71,11 +71,47 @@ public class BinaryTree {
         inOrder(root.right);
     }
 
+    //Iterative Inorder traversal of a Binary Tree
+    public void iterativeInOrder(TreeNode root){
+        if (root == null) {   //base line
+            return;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode temp = root;
+        while (!stack.isEmpty() || temp != null){
+            if (temp != null){
+                stack.push(temp);
+                temp = temp.left;
+            } else {
+                temp = stack.pop();
+                System.out.print(temp.data  + " --> ");
+                temp = temp.right;
+            }
+        }
+        System.out.println("End of Tree");
+    }
+
+    //Recursive Postorder traversal of a Binary Tree
+    public void postOrderRecursive(TreeNode root){
+        if (root == null) {   //base line recursion thread will be terminated here
+            return;
+        }
+        inOrder(root.left);
+        inOrder(root.right);
+        System.out.print(root.data + " ");
+    }
+
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
         bt.createBinaryTree();
+        System.out.println("Pre-Order");
         //bt.preOrder(bt.root);
-        //bt.preOrder2(bt.root);
-        bt.inOrder(bt.root);
+        bt.preOrder2(bt.root);
+        System.out.println("In-Order");
+//        bt.inOrder(bt.root);
+//        System.out.println();
+        bt.iterativeInOrder(bt.root);
+        System.out.println("Post-Order");
+        bt.postOrderRecursive(bt.root);
     }
 }
