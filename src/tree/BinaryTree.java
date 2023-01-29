@@ -151,6 +151,23 @@ public class BinaryTree {
         System.out.println("End of Tree");
     }
 
+    //find Maximum value in a Binary Tree (Recursive)
+    public int findMaxRecursive(TreeNode root){
+        if (root == null){
+            return Integer.MIN_VALUE;
+        }
+        int result = root.data;
+        int left = findMaxRecursive(root.left);
+        int right = findMaxRecursive(root.right);
+        if (left > result){
+            result = left;
+        }
+        if (right > result){
+            result = right;
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         BinaryTree bt = new BinaryTree();
         bt.createBinaryTree();
@@ -166,5 +183,7 @@ public class BinaryTree {
         bt.postOrderiterative(bt.root);
         System.out.println("Level-Order Traversal");
         bt.levelOrderTraversal(bt.root);
+        System.out.println("Find MAx");
+        System.out.println(bt.findMaxRecursive(bt.root));
     }
 }
