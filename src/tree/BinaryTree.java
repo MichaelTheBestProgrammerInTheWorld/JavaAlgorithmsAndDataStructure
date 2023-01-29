@@ -1,5 +1,7 @@
 package tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTree {
@@ -96,9 +98,57 @@ public class BinaryTree {
         if (root == null) {   //base line recursion thread will be terminated here
             return;
         }
-        inOrder(root.left);
-        inOrder(root.right);
+        postOrderRecursive(root.left);
+        postOrderRecursive(root.right);
         System.out.print(root.data + " ");
+    }
+
+    //Iterative Postorder Traversal of a Binary Tree
+    public void postOrderiterative(TreeNode root){
+        if (root == null) {   //base line recursion thread will be terminated here
+            return;
+        }
+        TreeNode current = root;
+        Stack<TreeNode> stack = new Stack<>();
+        while (current != null || !stack.isEmpty()){
+            if (current != null){
+                stack.push(current);
+                current = current.left;
+            } else {
+                TreeNode temp = stack.peek().right;
+                if (temp == null){
+                    temp = stack.pop();
+                    System.out.print(temp.data + " --> ");
+                    while (!stack.isEmpty() && temp == stack.peek().right){
+                        temp = stack.pop();
+                        System.out.print(temp.data + " --> ");
+                    }
+                } else {
+                    current = temp;
+                }
+            }
+        }
+        System.out.println("End of Tree");
+    }
+
+    //Level order traversal of a Binary Tree
+    public void levelOrderTraversal(TreeNode root){
+        if (root == null) {   //base line recursion thread will be terminated here
+            return;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            TreeNode temp = queue.poll();
+            System.out.print(temp.data + " --> ");
+            if (temp.left != null){
+                queue.offer(temp.left);
+            }
+            if (temp.right != null){
+                queue.offer(temp.right);
+            }
+        }
+        System.out.println("End of Tree");
     }
 
     public static void main(String[] args) {
@@ -112,6 +162,9 @@ public class BinaryTree {
 //        System.out.println();
         bt.iterativeInOrder(bt.root);
         System.out.println("Post-Order");
-        bt.postOrderRecursive(bt.root);
+        //bt.postOrderRecursive(bt.root);
+        bt.postOrderiterative(bt.root);
+        System.out.println("Level-Order Traversal");
+        bt.levelOrderTraversal(bt.root);
     }
 }
