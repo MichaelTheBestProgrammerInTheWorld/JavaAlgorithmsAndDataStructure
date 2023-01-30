@@ -38,6 +38,34 @@ public class BinarySearchTree {
         inOrder(root.right);
     }
 
+    //search a given key in a Binary Search Tree
+    public TreeNode search(TreeNode root, int key){
+        if (root == null || root.data == key){
+            return root;
+        }
+        if (key < root.data){
+            return search(root.left, key);
+        } else {
+            return search(root.right, key);
+        }
+    }
+
+    //Validate Binary Search Tree
+    public boolean isValid(TreeNode root, long min, long max){
+        if (root == null){
+            return true;
+        }
+        if (root.data <= min || root.data >= max){
+            return false;
+        }
+        boolean left = isValid(root.left, min, root.data);
+        if (left){
+            boolean right = isValid(root.right, root.data, max);
+            return right;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
 
         BinarySearchTree bst = new BinarySearchTree();
@@ -47,5 +75,20 @@ public class BinarySearchTree {
         bst.insert(bst.root, 4);
         bst.insert(bst.root, 5);
         bst.inOrder(bst.root);
+
+        System.out.println();
+
+        if (bst.search(bst.root, 5) != null){
+            System.out.println("key " + bst.search(bst.root, 5).data + " is found");
+        } else {
+            System.out.println("key not found");
+        }
+        if (bst.search(bst.root, 9) != null){
+            System.out.println("key " + bst.search(bst.root, 9).data + " is found");
+        } else {
+            System.out.println("key not found");
+        }
+
+        System.out.println("is tree valid? " + bst.isValid(bst.root, Long.MIN_VALUE, Long.MAX_VALUE));
     }
 }
