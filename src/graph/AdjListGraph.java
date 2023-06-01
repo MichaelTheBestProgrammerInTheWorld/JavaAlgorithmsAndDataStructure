@@ -2,6 +2,7 @@ package graph;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class AdjListGraph {
 
@@ -53,6 +54,26 @@ public class AdjListGraph {
                 }
             }
         }
+        System.out.println();
+    }
+
+    public void dfs(int startingPoint){
+        boolean[] visited = new boolean[V];
+        Stack<Integer> stack = new Stack<>();
+        stack.push(startingPoint);
+        while (!stack.isEmpty()){
+            int u = stack.pop();
+            if (!visited[u]){
+                visited[u] = true;
+                System.out.print(u + " ");
+                for (int v : adj[u]){
+                    if (!visited[v]){
+                        stack.push(v);
+                    }
+                }
+            }
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -64,5 +85,6 @@ public class AdjListGraph {
         alg.addEdge(2, 4);
         System.out.println(alg);
         alg.bfs(0);
+        alg.dfs(0);
     }
 }
