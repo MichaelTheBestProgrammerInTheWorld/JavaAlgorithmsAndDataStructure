@@ -28,17 +28,70 @@ public class HashTable {
     //all put get remove operations are of time complexity O(1)
     //put a new hashnode to the hashtable
     public void put(int key, String value){
+        if (value == null){
+            throw new IllegalArgumentException("Invalid input");
+        }
+        int bucketIndex = getBucketIndex(key);   // key % numOfBuckets;
+        HashNode head = buckets[bucketIndex];
+        while (head != null){
+            if (head.key == key){
+                head.value = value;
+                return;
+            }
+            head = head.next;
+        }
+        size++;
+        head = buckets[bucketIndex];
+        HashNode node = new HashNode(key, value);
+        node.next = head;
+        buckets[bucketIndex] = node;
+    }
 
+    //this is modular hash function
+    private int getBucketIndex(int key){
+        int index = key % numOfBuckets;
+        if (numOfBuckets > index && index >= 0){
+            return index;
+        } else {
+            throw new IllegalArgumentException("key is invalid exceeds capacity");
+        }
     }
 
     //retrieve value of a certain hashnode using its key
     public String get(int key){
+        int bucketIndex = getBucketIndex(key);   // key % numOfBuckets;
+        HashNode head = buckets[bucketIndex];
+        while (head != null){
+            if (head.key == key){
+                return head.value;
+            }
+            head = head.next;
+        }
         return null;
     }
 
     //remove a certain hashnode from hashtable using its key
     public String remove(int key){
-        return null;
+        int bucketIndex = getBucketIndex(key);   // key % numOfBuckets;
+        HashNode head = buckets[bucketIndex];
+        HashNode previous = null;
+        while (head != null){
+            if (head.key == key){
+                break;           //current key equals to the desired key
+            }
+            previous = head;    //current key not equals to the desired key
+            head = head.next;
+        }
+        if (head == null){
+            return null;    //key not found in hashtable
+        }
+        size--;        //deleting the node after we found it
+        if (previous != null){
+            previous.next = head.next;     //deleted node has next
+        } else {
+            buckets[bucketIndex] = head.next;   //deleted node doesnt have next
+        }
+        return head.value;
     }
 
     private class HashNode {
@@ -51,5 +104,22 @@ public class HashTable {
             this.key = key;
             this.value = value;
         }
+    }
+
+    public static void main(String[] args) {
+        HashTable table = new HashTable();
+        table.put(105, "Michael");
+        table.put(21, "Mary");
+        table.put(25, "Tom");
+        System.out.println("Number of elements in hash table = " + table.size());
+        table.put(25, "keona");
+        System.out.println("Number of elements in hash table = " + table.size());
+        System.out.println("Value in key 25 is " + table.get(25));
+        System.out.println("Value in key 28 is " + table.get(28));
+        table.put(29, "Jack");
+        System.out.println("Value in key 29 is " + table.get(29));
+        System.out.println("Value in key 29 is removed successfully " + table.remove(29));
+        System.out.println("Number of elements in hash table = " + table.size());
+        System.out.println("Value in key 30 is removed successfully " + table.remove(30));
     }
 }
