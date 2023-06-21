@@ -94,6 +94,18 @@ public class HashTable {
         return head.value;
     }
 
+    //display keys and values of all nodes exist in the hashtable
+    public void displayAllElements(){
+        for (int i=0; i<numOfBuckets; i++){
+            HashNode head = buckets[i];
+            while (head != null){
+                System.out.println("Key = " + head.key);
+                System.out.println("Value = " + head.value);
+                head = head.next;
+            }
+        }
+    }
+
     private class HashNode {
 
         private int key;   //can be generic type
@@ -121,5 +133,6 @@ public class HashTable {
         System.out.println("Value in key 29 is removed successfully " + table.remove(29));
         System.out.println("Number of elements in hash table = " + table.size());
         System.out.println("Value in key 30 is removed successfully " + table.remove(30));
+        table.displayAllElements();
     }
 }
