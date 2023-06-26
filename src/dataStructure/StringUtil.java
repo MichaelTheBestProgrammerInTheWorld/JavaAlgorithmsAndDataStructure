@@ -1,7 +1,6 @@
 package dataStructure;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class StringUtil {
 
@@ -47,6 +46,18 @@ public class StringUtil {
         return -1;
     }
 
+    public String removeVowel(String str){
+        Set<Character> vowel = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u')); //Set.of('a', 'e', 'i', 'o', 'u')  this will compile from java 9
+        StringBuilder sb = new StringBuilder();
+        char[] arr = str.toCharArray();
+        for (char c : arr){
+            if (!vowel.contains(c)){
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
 
         StringUtil stringUtil = new StringUtil();
@@ -61,5 +72,8 @@ public class StringUtil {
 
         System.out.println("First non repeated character");
         System.out.println(stringUtil.firstNonRepeatingCharacter("codeforcode"));
+
+        System.out.println("Remove vowels");
+        System.out.println(stringUtil.removeVowel("what is your name?"));
     }
 }
