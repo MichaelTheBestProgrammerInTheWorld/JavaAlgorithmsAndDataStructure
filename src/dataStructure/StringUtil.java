@@ -58,6 +58,21 @@ public class StringUtil {
         return sb.toString();
     }
 
+    public int longestSubstringWithoutRepeating(String str){
+        Map<Character, Integer> map = new HashMap<>();
+        int maxLength = 0;
+        int start = 0;
+        for (int end=0; end<str.length(); end++){
+            char rightChar = str.charAt(end);
+            if (map.containsKey(rightChar)){
+                start = Math.max(start, map.get(rightChar) +1);
+            }
+            map.put(rightChar, end);
+            maxLength = Math.max(maxLength, end-start+1);
+        }
+        return maxLength;
+    }
+
     public static void main(String[] args) {
 
         StringUtil stringUtil = new StringUtil();
@@ -75,5 +90,8 @@ public class StringUtil {
 
         System.out.println("Remove vowels");
         System.out.println(stringUtil.removeVowel("what is your name?"));
+
+        System.out.println("Longest Substring Without Repeating Characters");
+        System.out.println(stringUtil.longestSubstringWithoutRepeating("pwwkew"));
     }
 }
